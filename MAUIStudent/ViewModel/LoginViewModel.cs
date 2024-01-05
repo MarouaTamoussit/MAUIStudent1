@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MAUIStudent.Models;
+using MAUIStudent.Views;
+
 
 namespace MAUIStudent
 {
@@ -35,7 +37,7 @@ namespace MAUIStudent
             {
                 if (string.Equals(loginData.Password, Password))
                 {
-                  //  await Navigation.PushModalAsync(new ProductPage());
+                   await Navigation.PushModalAsync(new AccueilPage());
                 }
                 else
                 {

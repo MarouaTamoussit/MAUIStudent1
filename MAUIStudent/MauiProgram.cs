@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿
+using MAUIStudent.Services;
+using MAUIStudent.ViewModel;
+using MAUIStudent.Views;
 
 namespace MAUIStudent
 {
@@ -15,9 +18,7 @@ namespace MAUIStudent
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-#if DEBUG
-    		builder.Logging.AddDebug();
-#endif
+          
 
             return builder.Build();
         }

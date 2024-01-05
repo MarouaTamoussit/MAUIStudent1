@@ -27,5 +27,6 @@ namespace MAUIStudent.Database
         {
             return database.InsertAsync(loginData);
         }
+      
     }
 }

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUIStudent.Views.AddStudentDetail"
+             Title="AddStudent">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="TextColor" Value="SlateGray" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout Margin="10" Spacing="15">
+        <VerticalStackLayout>
+            <Label Text="CIN"  />
+            <Entry   Placeholder="CIN" Text="{Binding StudentDetail.CIN}"/>
+            <BoxView HeightRequest="0.8" Color="Gray" />
+        </VerticalStackLayout>
+            
+            
+        <VerticalStackLayout>
+            <Label Text="First Name"  />
+            <Entry   Placeholder="First Name" Text="{Binding StudentDetail.FirstName}" />
+            <BoxView HeightRequest="0.8" Color="Gray" />
+        </VerticalStackLayout>
+
+
+        <VerticalStackLayout>
+            <Label Text="Last Name" />
+            <Entry    Placeholder="Last Name" Text="{Binding StudentDetail.LastName}" />
+            <BoxView HeightRequest="0.8" Color="Gray" />
+        </VerticalStackLayout>
+
+
+        <VerticalStackLayout>
+            <Label Text="Email" />
+            <Entry Placeholder="Email" Text="{Binding StudentDetail.Email}" />
+            <BoxView HeightRequest="0.8" Color="Gray" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout>
+            <Label Text="Numéro de Téléphone" />
+            <Entry Placeholder="Numéro de Téléphone" Text="{Binding StudentDetail.tel}" />
+            <BoxView HeightRequest="0.8" Color="Gray" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout>
+            <Label Text="Filiére" />
+            <Entry Placeholder="Filiére" Text="{Binding StudentDetail.filiere}" />
+            <BoxView HeightRequest="0.8" Color="Gray" />
+        </VerticalStackLayout>
+
+
+        <Button Text="Save" Command="{Binding AddCommand}"/>
+        
+    </StackLayout>
+</ContentPage>
