@@ -12,20 +12,9 @@ namespace MAUIStudent
 
             MainPage = new LoginPage();
         }
-        static LoginDatabase database;
         static StudentDatabase database1;
         // Create the database connection as a singleton.
-        public static LoginDatabase Database
-        {
-            get
-            {
-                if (database == null)
-                {
-                    database = new LoginDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SQLLiteSample.db"));
-                }
-                return database;
-            }
-        }
+    
 
         public static StudentDatabase Database1
         {
@@ -34,6 +23,7 @@ namespace MAUIStudent
                 if (database1 == null)
                 {
                     database1 = new StudentDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SQLLiteSample.db"));
+                   
                 }
                 return database1;
             }

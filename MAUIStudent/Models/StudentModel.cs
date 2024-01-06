@@ -9,7 +9,7 @@ namespace MAUIStudent.Models
 {
     public class StudentModel
     {
-        [PrimaryKey]
+        [PrimaryKey,Unique]
         public string CIN { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

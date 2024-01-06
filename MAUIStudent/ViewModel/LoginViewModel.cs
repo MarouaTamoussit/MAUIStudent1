@@ -32,7 +32,7 @@ namespace MAUIStudent
 
         private async void OnLoginCommand(object obj)
         {
-            var loginData = await App.Database.GetLoginDataAsync(UserName);
+            var loginData = await App.Database1.GetLoginDataAsync(UserName);
             if (loginData != null)
             {
                 if (string.Equals(loginData.Password, Password))
@@ -55,7 +55,7 @@ namespace MAUIStudent
             LoginModel lm = new LoginModel();
             lm.UserName = UserName;
             lm.Password = Password;
-            App.Database.SaveLoginDataAsync(lm);
+            App.Database1.SaveLoginDataAsync(lm);
             App.Current.MainPage.DisplayAlert("Success", "Registration Successful", "Ok");
         }
     }
