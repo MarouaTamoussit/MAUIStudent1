@@ -24,7 +24,7 @@
             <Frame Grid.Row="1" Grid.Column="1" Padding="15">
                 <StackLayout Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center" >
                     <Image Source="absence.png" WidthRequest="45" Margin="0,5"/>
-                    <Button Text="Gestion d'absence" BackgroundColor="#65B741"   />
+                    <Button   Text="Gestion d'absence" BackgroundColor="#65B741" Command="{Binding AbsenceCommand}"  />
                 </StackLayout>
             </Frame>
 

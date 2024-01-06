@@ -1,6 +1,7 @@
 ﻿using SQLite;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,9 @@ namespace MAUIStudent.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string tel { get; set; }
-        public string filiere { get; set; }
+        [ForeignKey("filID")]
+        public string FiliereId { get; set; }
+        public LessonModel filID { get; set; }
 
     }
 }

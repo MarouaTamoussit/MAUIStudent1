@@ -1,9 +1,6 @@
 ﻿using MAUIStudent.Models;
 using SQLite;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MAUIStudent.Database
@@ -15,16 +12,60 @@ namespace MAUIStudent.Database
         public StudentDatabase(string dbPath)
         {
             database = new SQLiteAsyncConnection(dbPath);
-            database.CreateTableAsync<StudentModel>().Wait();
+            database.CreateTableAsync<LoginModel>().Wait();
+            //database.CreateTableAsync<StudentModel>().Wait();
+            database.CreateTableAsync<LessonModel>().Wait();
+            database.CreateTableAsync<FiliereModel>().Wait();
+            database.CreateTableAsync<AbsenceModel>().Wait();
         }
 
-       
+        public Task<List<StudentModel>> GetStudentsAsync()
+        {
+            return database.Table<StudentModel>().ToListAsync();
+        }
+
+        public Task<StudentModel> GetStudentAsync(string cin)
+        {
+            return database.Table<StudentModel>().Where(i => i.CIN == cin).FirstOrDefaultAsync();
+        }
 
         public Task<int> SaveStudentDataAsync(StudentModel studentData)
         {
-            return database.InsertAsync(studentData);
+            if (string.IsNullOrEmpty(studentData.CIN))
+            {
+                return database.InsertAsync(studentData);
+            }
+            else
+            {
+                return database.UpdateAsync(studentData);
+            }
+        }
+
+        public Task<int> DeleteStudentAsync(StudentModel studentData)
+        {
+            return database.DeleteAsync(studentData);
+        }
+        public Task<LoginModel> GetLoginDataAsync(string userName)
+        {
+            return database.Table<LoginModel>()
+                            .Where(i => i.UserName == userName)
+                            .FirstOrDefaultAsync();
+        }
+
+        public Task<int> SaveLoginDataAsync(LoginModel loginData)
+        {
+            return database.InsertAsync(loginData);
+        }
+        public Task<FiliereModel> GetFiliereAsync(string filiereName)
+        {
+            return database.Table<FiliereModel>()
+                            .Where(i => i.FiliereName == filiereName)
+                            .FirstOrDefaultAsync();
+        }
+
+        public Task<int> SaveFiliereAsync(FiliereModel filiereData)
+        {
+            return database.InsertAsync(filiereData);
         }
     }
 }
-    
-
