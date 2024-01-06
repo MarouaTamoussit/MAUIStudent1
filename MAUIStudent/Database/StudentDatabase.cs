@@ -13,9 +13,11 @@ namespace MAUIStudent.Database
         {
             database = new SQLiteAsyncConnection(dbPath);
             database.CreateTableAsync<LoginModel>().Wait();
-            //database.CreateTableAsync<StudentModel>().Wait();
+            var filiereModelInstance = new FiliereModel();
+            database.CreateTableAsync(filiereModelInstance.GetType()).Wait(); 
+            database.CreateTableAsync<StudentModel>().Wait();
             database.CreateTableAsync<LessonModel>().Wait();
-            database.CreateTableAsync<FiliereModel>().Wait();
+            
             database.CreateTableAsync<AbsenceModel>().Wait();
         }
 

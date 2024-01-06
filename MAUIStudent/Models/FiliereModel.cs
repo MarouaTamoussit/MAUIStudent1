@@ -11,7 +11,7 @@ namespace MAUIStudent.Models
 
     public class FiliereModel
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
         public string FiliereId { get; set; }
 
         public string FiliereName { get; set; }

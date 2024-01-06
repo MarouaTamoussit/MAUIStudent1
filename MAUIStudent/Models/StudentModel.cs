@@ -16,9 +16,9 @@ namespace MAUIStudent.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string tel { get; set; }
-        [ForeignKey("filID")]
+        [ForeignKey("FiliereModel")]
         public string FiliereId { get; set; }
-        public LessonModel filID { get; set; }
+        public FiliereModel FiliereModel { get; set; }
 
     }
 }

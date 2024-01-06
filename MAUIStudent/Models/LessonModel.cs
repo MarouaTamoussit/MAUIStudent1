@@ -15,13 +15,13 @@ namespace MAUIStudent.Models
         public string LessonName { get; set; }
 
         // foreign key
-        [ForeignKey("prof")]
+        [ForeignKey("LoginModel")]
         public string UserName { get; set; }
-        public LoginModel prof { get; set; }
+        public LoginModel LoginModel { get; set; }
       
-        [ForeignKey("FilId")]
-        public int FiliereId { get; set; }
-        public FiliereModel FilId { get; set; }
+        [ForeignKey("FiliereModel")]
+        public string FiliereId { get; set; }
+        public FiliereModel FiliereModel { get; set; }
 
     }
 }
