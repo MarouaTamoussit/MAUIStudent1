@@ -85,10 +85,15 @@ namespace MAUIStudent.Database
             return database.InsertAsync(student);
         }
         
-        public Task<int> SaveLessonDataAsync(LessonModel student)
+        public Task<int> SaveLessonDataAsync(LessonModel l)
         {
 
-            return database.InsertAsync(student);
+            return database.InsertAsync(l);
+
+        }
+        public Task<int> SaveFiliereDataAsync(FiliereModel f)
+        {
+            return database.InsertAsync(f);
 
         }
         /* public Task<List<StudentModel>> GetStudentsAsync()
