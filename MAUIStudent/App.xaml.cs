@@ -23,7 +23,6 @@ namespace MAUIStudent
                 if (database1 == null)
                 {
                     database1 = new StudentDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SQLLiteSample.db"));
-                   
                 }
                 return database1;
             }

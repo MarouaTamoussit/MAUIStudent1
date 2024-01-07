@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SQLite;
 
 namespace MAUIStudent.Models
 {
-    internal class FiliereModel
+
+
+    public class FiliereModel
     {
+        [PrimaryKey]
+        public string FiliereName { get; set; }
     }
+
 }

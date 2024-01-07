@@ -45,7 +45,7 @@ namespace MAUIStudent.ViewModel
             lm.LastName = LastName;
             lm.Email = Email;
             lm.tel = tel;
-            lm.filiere = filiere;
+            lm.FiliereName = filiere;
             App.Database1.SaveStudentDataAsync(lm);
             App.Current.MainPage.DisplayAlert("Success", "Etudiant Ajouté", "Ok");
         }

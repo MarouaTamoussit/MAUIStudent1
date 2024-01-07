@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUIStudent.Views.SearchAbsence"
+             Title="SearchAbsence">
+    <StackLayout Margin="20">
+
+        <!-- Picker 1 -->
+        <Picker x:Name="Picker1" Title="Select a Filiere" ItemsSource="{Binding FiliereOptions}" >
+            <!-- Les éléments de la liste seront ajoutés dynamiquement dans le code-behind -->
+        </Picker>
+
+        <!-- Picker 2 (Hidden initially) -->
+        <Picker x:Name="Picker2" Title="Select an Option" IsVisible="False" >
+            <!-- Les éléments de la liste seront ajoutés dynamiquement dans le code-behind -->
+        </Picker>
+
+        <!-- Picker 3 (Hidden initially) -->
+        <Picker x:Name="Picker3" Title="Select a Student" IsVisible="False" >
+            <!-- Les éléments de la liste seront ajoutés dynamiquement dans le code-behind -->
+        </Picker>
+
+        <!-- Boutons Search et Cancel -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Spacing="20">
+            <Button Text="Search" BackgroundColor="#65B741" />
+            <Button Text="Cancel"  BackgroundColor="#65B741"/>
+        </StackLayout>
+
+    </StackLayout>
+</ContentPage>
