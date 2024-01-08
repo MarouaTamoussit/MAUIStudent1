@@ -60,7 +60,7 @@ public partial class SearchAbsence : ContentPage
 
     private async void LoadAbsentStudents(string lessonName)
     {
-        List<StudentModel> absentStudents = await App.Database1.GetAbsentStudentsAsync(lessonName);
+        List<string> absentStudents = await App.Database1.GetAbsentStudentsAsync(lessonName);
         //List<string> absentStudent = new List<string>{ "a", "b", "c" };
         List<string> absentStudent = await App.Database1.GetCINsFromAbsencesAsync();
 
@@ -96,6 +96,7 @@ public partial class SearchAbsence : ContentPage
 
                 // Enregistrement des modifications dans la base de données
                 await App.Database1.SaveAbsenceDataAsync(existingAbsence);
+
             }
             else
             {

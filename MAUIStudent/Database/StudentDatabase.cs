@@ -166,7 +166,7 @@ namespace MAUIStudent.Database
                 return 0;
             }
         }
-        public async Task<List<StudentModel>> GetAbsentStudentsAsync(string lessonName)
+        public async Task<List<string>> GetAbsentStudentsAsync(string lessonName)
         {
             try
             {
@@ -178,20 +178,18 @@ namespace MAUIStudent.Database
                     .Where(absence => absence.LessonID == lessonId && absence.IsAbsent)
                     .ToListAsync();
 
-                // Récupérez les étudiants correspondants aux CIN obtenus
-                var absentStudents = await database.Table<StudentModel>()
-                    .Where(student => absentCINs.Select(absence => absence.CIN).Contains(student.CIN))
-                    .ToListAsync();
-
-                return absentStudents;
+                // Directement retourner la liste de CINs
+                return absentCINs.Select(absence => absence.CIN).ToList();
             }
             catch (Exception ex)
             {
                 // Gérez les exceptions appropriées
-                Console.WriteLine($"Erreur lors de la récupération des étudiants absents : {ex.Message}");
-                return new List<StudentModel>();
+                Console.WriteLine($"Erreur lors de la récupération des CIN des étudiants absents : {ex.Message}");
+                return new List<string>();
             }
         }
+
+
 
         public Task<List<string>> GetCINsFromAbsencesAsync()
         {

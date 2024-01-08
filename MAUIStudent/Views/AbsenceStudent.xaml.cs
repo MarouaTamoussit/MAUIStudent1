@@ -73,13 +73,14 @@ public partial class AbsenceStudent : ContentPage
     }
     private async void AddAbsence(string studentName, string lessonName)
     {
-
-        int lessonId = await App.Database1.GetLessonIDFromName(lessonName);
+        
+       string cin = await App.Database1.GetCINFromStudentName(studentName);
+int lessonId = await App.Database1.GetLessonIDFromName(lessonName);
 
         // Créez l'objet AbsenceModel
         AbsenceModel absence = new AbsenceModel
         {
-            CIN = studentName,
+            CIN = cin,
             LessonID = lessonId,
             IsAbsent = true // La case est cochée, donc l'étudiant est absent
         };

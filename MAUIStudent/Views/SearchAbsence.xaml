@@ -14,7 +14,7 @@
 
 
 
-        <ListView x:Name="absentsListView" ItemsSource="{Binding}" RowHeight="80">
+        <ListView x:Name="absentsListView" ItemsSource="{Binding AbsenceModel}" RowHeight="80">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -24,9 +24,9 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <Label Text="{Binding}" TextColor="Black" FontSize="18" Grid.Row="0"/>
+                            <Label Text="{Binding CIN}" TextColor="Black" FontSize="18" Grid.Row="0"/>
 
-                            <CheckBox IsChecked="{Binding}" Grid.Row="0" Grid.RowSpan="2" HorizontalOptions="End"  />
+                            <CheckBox IsChecked="{Binding IsAbsent}" Grid.Row="0" Grid.RowSpan="2" HorizontalOptions="End"  />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
