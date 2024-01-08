@@ -25,10 +25,10 @@ namespace MAUIStudent.Database
 
        
 
-        public Task<StudentModel> GetStudentAsync(string cin)
+       /* public Task<StudentModel> GetStudentAsync(string cin)
         {
             return database.Table<StudentModel>().Where(i => i.CIN == cin).FirstOrDefaultAsync();
-        }
+        }*/
 
        
 
@@ -48,12 +48,12 @@ namespace MAUIStudent.Database
             return database.InsertAsync(loginData);
         }
 
-        public Task<FiliereModel> GetFiliereAsync(string filiereName)
+       /* public Task<FiliereModel> GetFiliereAsync(string filiereName)
         {
             return database.Table<FiliereModel>()
                             .Where(i => i.FiliereName == filiereName)
                             .FirstOrDefaultAsync();
-        }
+        }*/
 
         public Task<int> SaveFiliereAsync(FiliereModel filiereData)
         {
@@ -71,6 +71,13 @@ namespace MAUIStudent.Database
             return database.Table<StudentModel>()
                             .ToListAsync()
                             .ContinueWith(t => t.Result.Select(f => f.FirstName).ToList());
+        }
+
+        public Task<List<StudentModel>> GetStudentsAsync(string filiereName)
+        {
+            return database.Table<StudentModel>()
+                            .Where(student => student.FiliereName == filiereName)
+                            .ToListAsync();
         }
 
         public Task<List<string>> GetLessonFromDatabase()
@@ -95,6 +102,118 @@ namespace MAUIStudent.Database
         {
             return database.InsertAsync(f);
 
+        }
+        public Task<List<string>> GetLessonsByFiliereFromDatabase(string filiereName)
+        {
+            return database.Table<LessonModel>()
+                            .Where(lesson => lesson.FiliereName == filiereName)
+                            .ToListAsync()
+                            .ContinueWith(t => t.Result.Select(lesson => lesson.LessonName).ToList());
+        }
+        public async Task<string> GetCINFromStudentName(string studentName)
+        {
+            try
+            {
+                var student = await database.Table<StudentModel>()
+                                           .Where(s => $"{s.FirstName} {s.LastName}" == studentName)
+                                           .FirstOrDefaultAsync();
+
+                return student?.CIN ?? string.Empty;
+            }
+            catch (Exception ex)
+            {
+                // Gérer les exceptions appropriées
+                Console.WriteLine($"Erreur lors de la récupération du CIN : {ex.Message}");
+                return string.Empty;
+            }
+        }
+
+
+        public async Task<int> GetLessonIDFromName(string lessonName)
+        {
+            try
+            {
+                var lesson = await database.Table<LessonModel>()
+                                          .Where(l => l.LessonName == lessonName)
+                                          .FirstOrDefaultAsync();
+
+                return lesson?.LessonId ?? 0;
+            }
+            catch (Exception ex)
+            {
+                // Gérer les exceptions appropriées
+                Console.WriteLine($"Erreur lors de la récupération de l'ID de leçon : {ex.Message}");
+
+                return 0;
+            }
+        }
+
+        public async Task<int> SaveAbsenceDataAsync(AbsenceModel absence)
+        {
+            try
+            {
+                await ((ContentPage)App.Current.MainPage).DisplayAlert("Succès", "Ajout d'absence avec succès", "OK");
+                return await database.InsertAsync(absence);
+
+
+            }
+            catch (Exception ex)
+            {
+                // Gérer les exceptions appropriées
+                Console.WriteLine($"Erreur lors de l'enregistrement de l'absence : {ex.Message}");
+                await ((ContentPage)App.Current.MainPage).DisplayAlert("Erreur", "Une erreur s'est produite lors de l'ajout de l'absence", "OK");
+
+                return 0;
+            }
+        }
+        public async Task<List<StudentModel>> GetAbsentStudentsAsync(string lessonName)
+        {
+            try
+            {
+                // Récupérez l'ID de la leçon en fonction de son nom
+                int lessonId = await GetLessonIDFromName(lessonName);
+
+                // Récupérez les CIN des étudiants absents pour la leçon donnée
+                var absentCINs = await database.Table<AbsenceModel>()
+                    .Where(absence => absence.LessonID == lessonId && absence.IsAbsent)
+                    .ToListAsync();
+
+                // Récupérez les étudiants correspondants aux CIN obtenus
+                var absentStudents = await database.Table<StudentModel>()
+                    .Where(student => absentCINs.Select(absence => absence.CIN).Contains(student.CIN))
+                    .ToListAsync();
+
+                return absentStudents;
+            }
+            catch (Exception ex)
+            {
+                // Gérez les exceptions appropriées
+                Console.WriteLine($"Erreur lors de la récupération des étudiants absents : {ex.Message}");
+                return new List<StudentModel>();
+            }
+        }
+
+        public Task<List<string>> GetCINsFromAbsencesAsync()
+        {
+            return database.Table<AbsenceModel>()
+                            .ToListAsync()
+                            .ContinueWith(t => t.Result.Select(absence => absence.CIN).ToList());
+        }
+
+        public async Task<AbsenceModel> GetAbsenceAsync(string fullName, int lessonId)
+        {
+            try
+            {
+                return await database.Table<AbsenceModel>()
+                                    .Where(a => a.CIN == fullName && a.LessonID == lessonId)
+                                    .FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                // Gérer les exceptions appropriées
+                Console.WriteLine($"Erreur lors de la récupération de l'absence : {ex.Message}");
+                return null;
+            }
         }
         /* public Task<List<StudentModel>> GetStudentsAsync()
          {

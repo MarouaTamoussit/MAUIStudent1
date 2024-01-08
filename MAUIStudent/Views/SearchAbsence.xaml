@@ -4,23 +4,35 @@
              x:Class="MAUIStudent.Views.SearchAbsence"
              Title="SearchAbsence">
     <StackLayout Margin="20">
+        <Label Text="Liste des absences" TextColor="Black" FontSize="20" HorizontalOptions="Center" Margin="0,10,0,10"/>
 
-        <!-- Picker 1 -->
-        <Picker x:Name="Picker1" Title="Select a Filiere" ItemsSource="{Binding FiliereOptions}" >
-            <!-- Les éléments de la liste seront ajoutés dynamiquement dans le code-behind -->
-        </Picker>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+            <Picker x:Name="Picker1" Title="Select a Filiere" ItemsSource="{Binding FiliereOptions}" SelectedIndexChanged="OnFiliereSelectedIndexChanged" />
+            <Picker x:Name="Picker2" Title="Select an Option" ItemsSource="{Binding LessonOptions}" SelectedIndexChanged="OnLessonSelectedIndexChanged" />
+        </StackLayout>
 
-        <!-- Picker 2 (Hidden initially) -->
-        <Picker x:Name="Picker2" Title="Select an Option" ItemsSource="{Binding LessonOptions}" >
-            <!-- Les éléments de la liste seront ajoutés dynamiquement dans le code-behind -->
-        </Picker>
 
-        <!-- Picker 3 (Hidden initially) -->
-        <Picker x:Name="Picker3" Title="Select a Student" IsVisible="False" ItemsSource="{Binding StudentOptions}" >
-            <!-- Les éléments de la liste seront ajoutés dynamiquement dans le code-behind -->
-        </Picker>
 
-        <!-- Boutons Search et Cancel -->
+
+        <ListView x:Name="absentsListView" ItemsSource="{Binding}" RowHeight="80">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Text="{Binding}" TextColor="Black" FontSize="18" Grid.Row="0"/>
+
+                            <CheckBox IsChecked="{Binding}" Grid.Row="0" Grid.RowSpan="2" HorizontalOptions="End"  />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Spacing="20">
             <Button Text="Search" BackgroundColor="#65B741" />
             <Button Text="Cancel"  BackgroundColor="#65B741"/>

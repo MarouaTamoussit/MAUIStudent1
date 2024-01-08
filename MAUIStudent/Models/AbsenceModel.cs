@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MAUIStudent.Models
 {
-    internal class AbsenceModel
+    public class AbsenceModel
     {
         [PrimaryKey, AutoIncrement]
         public int AbsenceId { get; set; }

@@ -50,10 +50,10 @@ namespace MAUIStudent.ViewModel
             App.Current.MainPage.DisplayAlert("Success", "Etudiant Ajouté", "Ok");
 
 
-            FiliereModel f = new FiliereModel();
+            /*FiliereModel f = new FiliereModel();
             f.FiliereName = filiere;
             App.Database1.SaveFiliereDataAsync(f);
-            App.Current.MainPage.DisplayAlert("Success", "Filière Ajoutée", "Ok");
+            App.Current.MainPage.DisplayAlert("Success", "Filière Ajoutée", "Ok");*/
         }
     }
 }

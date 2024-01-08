@@ -1,10 +1,4 @@
-
-
-
-
 using MAUIStudent.ViewModel;
-
-
 
 namespace MAUIStudent.Views
 {
