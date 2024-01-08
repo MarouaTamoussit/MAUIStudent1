@@ -6,7 +6,7 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Liste des étudiants" TextColor="Black" FontSize="20" HorizontalOptions="Center" Margin="0,10,0,10"/>
+            <Label x:Name="label1" Text="Liste des étudiants" TextColor="Black" FontSize="20" HorizontalOptions="Center" Margin="0,10,0,10"/>
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                 <Picker x:Name="filierePicker" ItemsSource="{Binding FiliereModel}" Title="Sélectionner la filière" SelectedIndexChanged="OnFiliereSelectedIndexChanged"  />
                 <Picker x:Name="lessonPicker" ItemsSource="{Binding LessonModel}" Title="Sélectionner la leçon" />

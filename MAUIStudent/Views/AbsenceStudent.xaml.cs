@@ -9,7 +9,8 @@ public partial class AbsenceStudent : ContentPage
 		InitializeComponent();
         FilierePicker();
         LessonPicker();
-}
+        studentsListView.ItemSelected += OnStudentSelected;
+    }
     private async void FilierePicker()
     {
         List<string> filieres = await App.Database1.GetFiliereNamesFromDatabase();
@@ -58,13 +59,23 @@ public partial class AbsenceStudent : ContentPage
 
         studentsListView.ItemsSource = studentsFullNames;
     }
+    private void OnStudentSelected(object sender, SelectedItemChangedEventArgs e)
+    {
+        if (e.SelectedItem != null)
+        {
+            string selectedStudent = e.SelectedItem as string;
+            // Utilisez selectedStudent comme requis
+        }
+    }
 
-    private void OnCheckBoxChecked(object sender, CheckedChangedEventArgs e)
+    private async void OnCheckBoxChecked(object sender, CheckedChangedEventArgs e)
     {
         if (e.Value) 
         {
             // Récupérer les informations nécessaires
+            
             string selectedStudent = studentsListView.SelectedItem as string;
+            await((ContentPage)App.Current.MainPage).DisplayAlert("Succès", $"Étudiant sélectionné : {selectedStudent}", "OK");
             string selectedLesson = lessonPicker.SelectedItem as string;
 
             // Appeler la méthode pour ajouter l'absence
@@ -74,13 +85,13 @@ public partial class AbsenceStudent : ContentPage
     private async void AddAbsence(string studentName, string lessonName)
     {
         
-       string cin = await App.Database1.GetCINFromStudentName(studentName);
+       //string cin = await App.Database1.GetCINFromStudentName(studentName);
 int lessonId = await App.Database1.GetLessonIDFromName(lessonName);
 
         // Créez l'objet AbsenceModel
         AbsenceModel absence = new AbsenceModel
         {
-            CIN = cin,
+            CIN = studentName,
             LessonID = lessonId,
             IsAbsent = true // La case est cochée, donc l'étudiant est absent
         };
@@ -89,5 +100,15 @@ int lessonId = await App.Database1.GetLessonIDFromName(lessonName);
         App.Database1.SaveAbsenceDataAsync(absence);
     }
 
+    /*protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // Récupérer le texte du label avec le nom "label"
+            string labelText = label.Text;
+
+            // Utiliser la valeur récupérée comme vous le souhaitez
+            // ...
+        }*/
 
 }

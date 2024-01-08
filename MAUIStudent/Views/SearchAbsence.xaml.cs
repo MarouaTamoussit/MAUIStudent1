@@ -62,7 +62,7 @@ public partial class SearchAbsence : ContentPage
     {
         List<string> absentStudents = await App.Database1.GetAbsentStudentsAsync(lessonName);
         //List<string> absentStudent = new List<string>{ "a", "b", "c" };
-        List<string> absentStudent = await App.Database1.GetCINsFromAbsencesAsync();
+       // List<string> absentStudent = await App.Database1.GetCINsFromAbsencesAsync();
 
 
         absentsListView.ItemsSource = absentStudents;
