@@ -64,6 +64,7 @@ public partial class SearchAbsence : ContentPage
         //List<string> absentStudent = new List<string>{ "a", "b", "c" };
         List<string> absentStudent = await App.Database1.GetCINsFromAbsencesAsync();
 
+
         absentsListView.ItemsSource = absentStudents;
     }
     private async void OnCheckBoxChecked(object sender, CheckedChangedEventArgs e)
