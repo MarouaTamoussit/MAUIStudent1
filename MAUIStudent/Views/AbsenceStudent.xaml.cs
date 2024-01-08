@@ -1,4 +1,5 @@
 using MAUIStudent.Models;
+using MAUIStudent.ViewModel;
 
 namespace MAUIStudent.Views;
 
@@ -10,6 +11,7 @@ public partial class AbsenceStudent : ContentPage
         FilierePicker();
         LessonPicker();
         studentsListView.ItemSelected += OnStudentSelected;
+        this.BindingContext = new InformationViewModel(this.Navigation);
     }
     private async void FilierePicker()
     {
@@ -28,6 +30,8 @@ public partial class AbsenceStudent : ContentPage
             lessonPicker.Items.Add(lesson);
         }
     }
+
+   
     private async void OnFiliereSelectedIndexChanged(object sender, EventArgs e)
     {
         string selectedFiliere = filierePicker.SelectedItem as string;
