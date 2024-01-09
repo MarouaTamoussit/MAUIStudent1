@@ -25,7 +25,7 @@ namespace MAUIStudent.Database
 
        
 
-       /* public Task<StudentModel> GetStudentAsync(string cin)
+       /*public Task<StudentModel> GetStudentAsync(string cin)
         {
             return database.Table<StudentModel>().Where(i => i.CIN == cin).FirstOrDefaultAsync();
         }*/
@@ -70,7 +70,7 @@ namespace MAUIStudent.Database
         {
             return database.Table<StudentModel>()
                             .ToListAsync()
-                            .ContinueWith(t => t.Result.Select(f => f.FirstName).ToList());
+                            .ContinueWith(t => t.Result.Select(f => f.FirstName + " " + f.LastName).ToList());
         }
 
         public Task<List<StudentModel>> GetStudentsAsync(string filiereName)
@@ -125,6 +125,28 @@ namespace MAUIStudent.Database
                 // Gérer les exceptions appropriées
                 Console.WriteLine($"Erreur lors de la récupération du CIN : {ex.Message}");
                 return string.Empty;
+            }
+        }
+
+        public async Task<List<string>> GetCINFromAbsentName(string studentName)
+        {
+            try
+            {
+                // Récupérez l'ID de la leçon en fonction de son nom
+                String Cin = await GetCINFromStudentName(studentName);
+
+                // Récupérez les CIN des étudiants absents p
+                var absentCINs = await database.Table<AbsenceModel>()
+                    .ToListAsync();
+
+                // Directement retourner la liste de CINs
+                return absentCINs.Select(absence => absence.CIN).ToList();
+            }
+            catch (Exception ex)
+            {
+                // Gérez les exceptions appropriées
+                Console.WriteLine($"Erreur lors de la récupération des CIN des étudiants absents : {ex.Message}");
+                return new List<string>();
             }
         }
 

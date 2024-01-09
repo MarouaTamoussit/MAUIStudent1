@@ -31,7 +31,7 @@
             </ListView>
 
             <!-- Bouton pour enregistrer la présence -->
-            <Button Text="Enregistrer la présence" BackgroundColor="#65B741"   HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Margin="0,20"/>
+            <Button Text="Page d'information" BackgroundColor="#65B741"   HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Margin="0,20" Command="{Binding SaveCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

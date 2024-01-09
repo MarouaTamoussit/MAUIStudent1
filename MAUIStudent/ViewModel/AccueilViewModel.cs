@@ -16,6 +16,8 @@ namespace MAUIStudent.ViewModel
         public ICommand AbsenceCommand { private set; get; }
         public ICommand SearchCommand { private set; get; }
         public ICommand LessonCommand { private set; get; }
+        public ICommand LogoutCommand { private set; get; }
+       
 
         private INavigation Navigation;
 
@@ -26,6 +28,8 @@ namespace MAUIStudent.ViewModel
             AbsenceCommand = new Command(OnAbsenceCommand);
             SearchCommand = new Command(OnSearchCommand);
             LessonCommand = new Command(OnLessonCommand);
+            LogoutCommand = new Command(OnLogoutCommand);
+
         }
 
         private async void OnStudentCommand(object obj)
@@ -44,6 +48,10 @@ namespace MAUIStudent.ViewModel
         private async void OnLessonCommand(object obj)
         {
             await Navigation.PushModalAsync(new AddLessonPage());
+        }
+        private async void OnLogoutCommand(object obj)
+        {
+            await Navigation.PushModalAsync(new LoginPage());
         }
     }
 }
