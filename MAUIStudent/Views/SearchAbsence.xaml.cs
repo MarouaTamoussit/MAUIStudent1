@@ -10,10 +10,14 @@ public partial class SearchAbsence : ContentPage
         {
             InitializeComponent();
             FilierePicker();
-           // LessonPicker();
-            //StudentPicker();
+        this.BindingContext = new SearchAbsenceViewModel(this.Navigation);
 
-       //Picker1.SelectedIndexChanged += OnFiliereSelectedIndexChanged;
+        absentsListView.ItemSelected += OnStudentSelected;
+
+        // LessonPicker();
+        //StudentPicker();
+
+        //Picker1.SelectedIndexChanged += OnFiliereSelectedIndexChanged;
 
     }
 
@@ -67,23 +71,37 @@ public partial class SearchAbsence : ContentPage
 
         absentsListView.ItemsSource = absentStudents;
     }
+    private void OnStudentSelected(object sender, SelectedItemChangedEventArgs e)
+    {
+        if (e.SelectedItem != null)
+        {
+            string selectedStudent = e.SelectedItem as string;
+            // Utilisez selectedStudent comme requis
+        }
+    }
     private async void OnCheckBoxChecked(object sender, CheckedChangedEventArgs e)
     {
-        if (sender is CheckBox checkBox && checkBox.BindingContext is string fullName)
+        if (absentsListView.SelectedItem != null)
         {
-            // Récupérer les informations nécessaires
+            string selectedStudent = absentsListView.SelectedItem as string;
             string lessonName = Picker2.SelectedItem as string;
 
-            // Appeler la méthode pour ajouter ou mettre à jour l'absence
-            await AddOrUpdateAbsence(fullName, lessonName, e.Value);
+           // await AddOrUpdateAbsence(selectedStudent, lessonName, e.Value);
+
+            await DisplayAlert("Succès", $"Étudiant sélectionné : {selectedStudent}", "OK");
+
+            // Supprimer l'étudiant de la table si la case est désélectionnée
+            if (!e.Value)
+            {
+                await RemoveStudentFromAbsences(selectedStudent, lessonName);
+            }
         }
     }
 
-    private async Task AddOrUpdateAbsence(string fullName, string lessonName, bool isAbsent)
+    private async Task RemoveStudentFromAbsences(string fullName, string lessonName)
     {
         try
         {
-            // Récupérer l'ID de leçon à partir du nom de la leçon
             int lessonId = await App.Database1.GetLessonIDFromName(lessonName);
 
             // Recherche de l'absence correspondante dans la base de données
@@ -91,35 +109,25 @@ public partial class SearchAbsence : ContentPage
 
             if (existingAbsence != null)
             {
-                // Mise à jour de l'état d'absence
-                existingAbsence.IsAbsent = isAbsent;
+                // Supprimer l'absence de la base de données
+                int rowsAffected = await App.Database1.DeleteAbsenceAsync(existingAbsence);
 
-                // Enregistrement des modifications dans la base de données
-                await App.Database1.SaveAbsenceDataAsync(existingAbsence);
-
-            }
-            else
-            {
-                // Créez l'objet AbsenceModel avec le nom complet
-                AbsenceModel newAbsence = new AbsenceModel
+                if (rowsAffected > 0)
                 {
-                    CIN = fullName,
-                    LessonID = lessonId,
-                    IsAbsent = isAbsent
-                };
-
-                // Ajoutez l'absence à la base de données
-                await App.Database1.SaveAbsenceDataAsync(newAbsence);
+                    Console.WriteLine("Suppression réussie");
+                }
+                else
+                {
+                    Console.WriteLine("Aucune suppression effectuée");
+                }
             }
         }
         catch (Exception ex)
         {
             // Gérer les exceptions appropriées
-            Console.WriteLine($"Erreur lors de l'ajout ou de la mise à jour de l'absence : {ex.Message}");
+            Console.WriteLine($"Erreur lors de la suppression de l'absence : {ex.Message}");
         }
     }
-
-
 
 
 }

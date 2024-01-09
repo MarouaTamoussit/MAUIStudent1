@@ -8,13 +8,13 @@
 
         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
             <Picker x:Name="Picker1" Title="Select a Filiere" ItemsSource="{Binding FiliereOptions}" SelectedIndexChanged="OnFiliereSelectedIndexChanged" />
-            <Picker x:Name="Picker2" Title="Select an Option" ItemsSource="{Binding LessonOptions}" SelectedIndexChanged="OnLessonSelectedIndexChanged" />
+            <Picker x:Name="Picker2" Title="Select an Option" ItemsSource="{Binding LessonName}"  SelectedIndexChanged="OnLessonSelectedIndexChanged" />
         </StackLayout>
 
 
 
 
-        <ListView x:Name="absentsListView" ItemsSource="{Binding AbsenceModel}" RowHeight="80">
+        <ListView x:Name="absentsListView" ItemsSource="{Binding AbsentStudents}"  RowHeight="80">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -26,7 +26,7 @@
 
                             <Label Text="{Binding}" TextColor="Black" FontSize="18" Grid.Row="0"/>
 
-                            <CheckBox IsChecked="{Binding IsAbsent}" Grid.Row="0" Grid.RowSpan="2" HorizontalOptions="End"  />
+                            <CheckBox IsChecked="True" Grid.Row="0" Grid.RowSpan="2" HorizontalOptions="End" CheckedChanged="OnCheckBoxChecked" />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
@@ -34,8 +34,8 @@
         </ListView>
 
         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" Spacing="20">
-            <Button Text="Search" BackgroundColor="#65B741" />
-            <Button Text="Cancel"  BackgroundColor="#65B741"/>
+            <Button Text="Cancel" BackgroundColor="#65B741" Command="{Binding CancelCommand}"/>
+         
         </StackLayout>
 
     </StackLayout>
