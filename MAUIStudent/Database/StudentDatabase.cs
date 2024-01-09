@@ -235,6 +235,19 @@ namespace MAUIStudent.Database
                 return null;
             }
         }
+        public async Task<int> DeleteAbsenceAsync(AbsenceModel absence)
+        {
+            try
+            {
+                return await database.DeleteAsync(absence);
+            }
+            catch (Exception ex)
+            {
+                // Gérer les exceptions appropriées
+                Console.WriteLine($"Erreur lors de la suppression de l'absence : {ex.Message}");
+                return -1; // Ou tout autre code d'erreur approprié
+            }
+        }
         /* public Task<List<StudentModel>> GetStudentsAsync()
          {
              return _database.Table<StudentModel>().ToListAsync();
